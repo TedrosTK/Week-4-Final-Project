@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Explorer</title>
+    <link rel="stylesheet" href="app.css" />
+    <script defer src="app.js"></script>
+  </head>
+  body>
+    <header>
+        <nav>
+            <a href="#" class="logo">TEDFLIX</a>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#movies">Movies</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="section">
+            <h1>Welcome to TEDFLIX</h1>
+            <p>Discover the world of movies</p>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search for movies...">
+            </div>
+            <div class="movies-grid" id="moviesGrid"></div>
+            <div class="pagination" id="pagination"></div>
+        </section>
+
+        <section id="about" class="section">
+            <h2>About Us</h2>
+            <p>TEDFLIX is your go-to platform for discovering and exploring movies from all genres and eras. Our mission is to provide movie enthusiasts with a seamless and engaging experience to find their next favorite film.</p>
+        </section>
+
+        <section id="movies" class="section">
+            <h2>Movies</h2>
+            <div class="filter-sort">
+                <label for="sort">Sort by:</label>
+                <select id="sort">
+                    <option value="popularity.desc">Popularity</option>
+                    <option value="release_date.desc">Release Date</option>
+                    <option value="vote_average.desc">Rating</option>
+                </select>
+            </div>
+            <div class="movies-grid" id="allMoviesGrid"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 TEDFLIX. All rights reserved.</p>
+    </footer>
+</body>
+</html>
