@@ -1,93 +1,66 @@
 const API_KEY = 'b983a74c07c22bb8662915dbde85e9b5';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
-const moviesGrid = document.getElementById('moviesGrid');
-const searchInput = document.getElementById('searchInput');
-const allMoviesGrid = document.getElementById('allMoviesGrid');
-const sortSelect = document.getElementById('sort');
-const pagination = document.getElementById('pagination');
+const RESULTS_PER_PAGE = 6;
 
-let currentPage = 1;
-let totalPages = 1;
-let currentSearchQuery = '';
-
-document.addEventListener('DOMContentLoaded', () => {
-    loadTrendingMovies();
-    sortSelect.addEventListener('change', loadSortedMovies);
-    searchInput.addEventListener('input', handleSearch);
-});
-
-async function fetchMovies(url) {
-    const res = await fetch(url);
-    const data = await res.json();
-    totalPages = data.total_pages;
-    return data.results;
+async function fetchMovies(keyword, page) {
+    const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${keyword}&page=${page}`);
+    const data = await response.json();
+    return data;
 }
 
-function renderMovies(movies, container) {
-    container.innerHTML = '';
-    movies.forEach(movie => {
-        const movieCard = document.createElement('div');
-        movieCard.classList.add('movie-card');
-        movieCard.innerHTML = `
-            <img src="${IMG_URL + movie.poster_path}" alt="${movie.title}">
-            <h3>${movie.title}</h3>
-            <p>Rating: ${movie.vote_average}</p>
+function displayMovies(movies) {
+    const filmsList = document.getElementById('filmsList');
+    filmsList.innerHTML = '';
+    movies.results.forEach(movie => {
+        const movieCard = `
+            <div class="film">
+                <a href="movie-details.html?id=${movie.id}">
+                    <img src="${IMG_URL}${movie.poster_path}" alt="${movie.title}" class="film__img">
+                </a>
+                <h2 class="films__title">${movie.title}</h2>
+                <p class="films__body">${movie.overview}</p>
+            </div>
         `;
-        container.appendChild(movieCard);
+        filmsList.innerHTML += movieCard;
     });
 }
 
-async function loadTrendingMovies() {
-    const url = `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`;
-    const movies = await fetchMovies(url);
-    renderMovies(movies, moviesGrid);
-}
-
-async function handleSearch() {
-    currentSearchQuery = searchInput.value;
-    if (currentSearchQuery) {
-        currentPage = 1;
-        await loadSearchedMovies();
-    } else {
-        loadTrendingMovies();
-    }
-}
-
-async function loadSearchedMovies() {
-    const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${currentSearchQuery}&page=${currentPage}`;
-    const movies = await fetchMovies(url);
-    renderMovies(movies, moviesGrid);
-    updatePagination();
-}
-
-async function loadSortedMovies() {
-    const sortBy = sortSelect.value;
-    const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&sort_by=${sortBy}`;
-    const movies = await fetchMovies(url);
-    console.log(movies)
-    renderMovies(movies, allMoviesGrid);
-}
-
-function updatePagination() {
+function displayPagination(totalPages, currentPage) {
+    const pagination = document.getElementById('pagination');
     pagination.innerHTML = '';
-    if (totalPages > 1) {
-        const prevButton = document.createElement('button');
-        prevButton.textContent = 'Previous';
-        prevButton.disabled = currentPage === 1;
-        prevButton.addEventListener('click', () => {
-            currentPage--;
-            loadSearchedMovies();
-        });
-        pagination.appendChild(prevButton);
-
-        const nextButton = document.createElement('button');
-        nextButton.textContent = 'Next';
-        nextButton.disabled = currentPage === totalPages;
-        nextButton.addEventListener('click', () => {
-            currentPage++;
-            loadSearchedMovies();
-        });
-        pagination.appendChild(nextButton);
+    for (let i = 1; i <= totalPages; i++) {
+        pagination.innerHTML += `<button class="btn pagination-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
     }
 }
+
+function handleSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const keyword = searchInput.value.trim();
+    if (keyword !== '') {
+        fetchAndDisplayMovies(keyword, 1);
+    }
+}
+
+async function fetchAndDisplayMovies(keyword, page) {
+    const movies = await fetchMovies(keyword, page);
+    const totalPages = movies.total_pages;
+    displayMovies(movies);
+    displayPagination(totalPages, page);
+}
+
+document.getElementById('searchBtn').addEventListener('click', handleSearch);
+
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('pagination-btn')) {
+        const page = parseInt(event.target.dataset.page);
+        const keyword = document.getElementById('searchInput').value.trim();
+        fetchAndDisplayMovies(keyword, page);
+    }
+});
+
+document.getElementById('clearBtn').addEventListener('click', function() {
+    document.getElementById('searchInput').value = '';
+    const keyword = document.getElementById('searchInput').value.trim();
+    fetchAndDisplayMovies(keyword, 1);
+});
