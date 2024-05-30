@@ -51,19 +51,34 @@ img {
     object-fit: cover;
 }
 
-.btn {
+button {
     background-color: var(--primary-color);
-    color: white;
-    padding: 12px 36px;
+    color: #242424;
     font-size: 16px;
     font-weight: 600;
     border-radius: 9999px;
     border: none;
     cursor: pointer;
+    transition: all 300ms ease;
 }
 
-.btn:hover {
+button:hover {
     background: var(--secondary-color);
+    color: white;
+}
+
+.click {
+    cursor: pointer;
+    transition: all 300ms ease;
+}
+
+.click:hover {
+    transform: scale(1.1);
+
+}
+.click:active {
+    transform: scale(0.8);
+
 }
 
 .link__hover-effect {
@@ -205,11 +220,18 @@ nav {
 
 .nav__link {
     margin: 0 12px;
+    text-decoration: none;
     padding: 0px 0px 4px;
     font-size: 20px;
+    font-weight: bold;
     color: var(--text-color);
     font-weight: 600;
     cursor: pointer;
+}
+
+  
+.nav__link:hover {
+text-decoration: underline;
 }
 
 /* LANDING PAGE */
@@ -369,7 +391,8 @@ nav {
 
 .pagination {
     display: flex;
-    justify-content: center;
+    width: 100%;
+    justify-content: space-around;
     margin-top: 40px;
 }
 
@@ -423,21 +446,33 @@ footer p {
     color: var(--text-color);
 }
 
-#backToTop {
+ #backToTop {
     position: fixed;
-    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    bottom: 80px;
     right: 20px;
+    font-size: 24px;
     display: none;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
     cursor: pointer;
+    
+} 
+
+#backToTop:hover {
+    font-size: 28px;
+    transition: all 300ms ease;
+    transform: scale(1.1);
+
+}
+
+#backToTop:active {
+    transition: all 100ms ease;
+    transform: scale(0.8);
 }
 
 #backToTop.show {
     display: block;
+    color: white;
 }
 
 .spinner {
