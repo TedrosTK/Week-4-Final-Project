@@ -45,9 +45,16 @@ li {
     list-style-type: none;
 }
 
+a {
+    text-decoration: none;
+    position: relative;
+    transition: opacity 300ms ease;
+  }
+
 img {
     width: 100%; 
     height: 100%;
+    margin-bottom: 20px;
     object-fit: cover;
 }
 
@@ -191,26 +198,17 @@ body {
 /* NAVIGATION */
 
 nav {
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    height: 100px;
+    height: 152px;
+    z-index: 1000;
 }
 
-.nav__logo {
-    flex: 1;
-    width: 50px;
-    height: 50px;
-    
-}
-
-#logo {
-    width: 50px;
-    height: 50px;
-}
 
 .nav__links {
     display: flex;
@@ -220,7 +218,6 @@ nav {
 
 .nav__link {
     margin: 0 12px;
-    text-decoration: none;
     padding: 0px 0px 4px;
     font-size: 20px;
     font-weight: bold;
@@ -229,10 +226,6 @@ nav {
     cursor: pointer;
 }
 
-  
-.nav__link:hover {
-text-decoration: underline;
-}
 
 /* LANDING PAGE */
 
@@ -300,26 +293,7 @@ text-decoration: underline;
 
 }
 
-/* FEATURED FILMS */
-
-.featured__title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 80px;
-}
-
-.featured__films {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-    margin-top: 40px;
-}
-
-.featured__films img {
-    width: 100%;
-    border-radius: 8px;
-}
+/* Movies */
 
 .movie {
     display: flex;
@@ -424,34 +398,8 @@ text-decoration: underline;
 .pagination span {
     font-size: 16px;
     font-weight: bold;
-    justify-self: center; /* Center text in its grid cell */
+    justify-self: center;
 }
-
-
-/* .pagination {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-    margin-top: 40px;
-}
-
-.pagination button {
-    margin: 0 5px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--primary-color);
-    color: white;
-    cursor: pointer;
-}
-
-.pagination button.active {
-    background-color: var(--secondary-color);
-}
-
-.pagination button:hover {
-    background-color: var(--secondary-color);
-} */
 
 /* FOOTER */
 
@@ -461,8 +409,9 @@ footer {
     align-items: center;
     width: 100%;
     max-width: 1200px;
+    height: 80px;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 20px 0 20px 0;
 }
 
 .social-media-icons {
@@ -481,7 +430,7 @@ footer {
 }
 
 footer p {
-    font-size: 16px;
+    font-size: 20px;
     color: var(--text-color);
 }
 
@@ -498,7 +447,7 @@ footer p {
 } 
 
 #backToTop:hover {
-    font-size: 28px;
+    font-size: 32px;
     transition: all 300ms ease;
     transform: scale(1.1);
 
@@ -512,6 +461,7 @@ footer p {
 #backToTop.show {
     display: block;
     color: white;
+    font-weight: bold;
 }
 
 .spinner {
@@ -535,10 +485,6 @@ footer p {
 svg {
     width: 120px;
     height: 120px;
-    display: flex;
-    align-items: center;
-    margin: 0 12px;
-    padding: 0px 0px 4px;
 }
 
 @keyframes spin {

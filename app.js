@@ -122,6 +122,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="movie__title">${movie.title} (${extractYear(movie.release_date)})</div>
             </div>
         `).join('');
+
+        // Event listener for movie clicks
+        document.querySelectorAll('.movie').forEach(movieElement => {
+            movieElement.addEventListener('click', (event) => {
+                const title = event.target.alt;
+                openYouTubeSearch(title);
+
+                console.log(event)
+            });
+        });
+    }
+
+    function openYouTubeSearch(title) {
+        const url = `https://www.youtube.com/results?search_query=${encodeURIComponent(title)}`;
+        window.open(url, '_blank');
     }
 
     function displayPagination(totalPages, currentPage) {
