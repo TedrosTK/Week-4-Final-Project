@@ -390,6 +390,45 @@ text-decoration: underline;
 /* PAGINATION */
 
 .pagination {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.pagination button {
+    margin: 0 5px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    justify-self: center; /* Center buttons in their grid cell */
+}
+
+.pagination button.active {
+    background-color: var(--secondary-color);
+}
+
+.pagination button:hover {
+    background-color: var(--secondary-color);
+}
+
+.pagination .placeholder {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.pagination span {
+    font-size: 16px;
+    font-weight: bold;
+    justify-self: center; /* Center text in its grid cell */
+}
+
+
+/* .pagination {
     display: flex;
     width: 100%;
     justify-content: space-around;
@@ -412,7 +451,7 @@ text-decoration: underline;
 
 .pagination button:hover {
     background-color: var(--secondary-color);
-}
+} */
 
 /* FOOTER */
 

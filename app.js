@@ -125,11 +125,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function displayPagination(totalPages, currentPage) {
-        pagination.innerHTML = `
-            <button class="pagination-btn" data-page="prev" ${currentPage === 1 ? 'disabled' : ''}>Previous Page</button>
-            <span>Page ${currentPage} of ${totalPages}</span>
-            <button class="pagination-btn" data-page="next" ${currentPage === totalPages ? 'disabled' : ''}>Next Page</button>
-        `;
+        let paginationHtml = '';
+        if (currentPage > 1) {
+            paginationHtml += `<button class="pagination-btn" data-page="prev">Previous Page</button>`;
+        }
+        paginationHtml += `<span>Page ${currentPage} of ${totalPages}</span>`;
+        if (currentPage < totalPages) {
+            paginationHtml += `<button class="pagination-btn" data-page="next">Next Page</button>`;
+        }
+        pagination.innerHTML = paginationHtml;
     }
 
     function updateFilmsListClass(numberOfMovies) {
